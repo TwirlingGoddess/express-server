@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const data = require('./public/data.json')
+const sunset = require('./public/sunset.jpeg')
 
 const urlLogger = (request, response, next) => {
   console.log('Request URL:', request.url);
@@ -23,11 +25,11 @@ app.get('/', (request, response) => {
 });
 
 app.get('/json', (request, response) => {
-  response.status(200).json({"name": "LeeLee"});
+  response.status(200).json(data);
 });
 
 app.get('/sunsets', (request, response) => {
-  response.status(200).json({'pic': "<img src='https://cdn-images-1.medium.com/max/1600/1*zf4T8RZkbis2W9Yej8p7gw.jpeg'/>"})
+  response.status(200).json(sunset)
 });
 
 app.use(function (req, res, next) {
