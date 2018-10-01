@@ -11,7 +11,7 @@ const timeLogger = (request, response, next) => {
   next();
 };
 
-// app.use(urlLogger)
+app.use(urlLogger, timeLogger)
 app.use(express.static('public'))
 
 app.listen(3000, () => {
@@ -22,6 +22,14 @@ app.get('/', (request, response) => {
   // response.send('hello world');
 });
 
-app.get('/json', urlLogger, timeLogger, (request, response) => {
+app.get('/json', (request, response) => {
   response.status(200).json({"name": "LeeLee"});
 });
+
+app.get('/sunsets', (request, response) => {
+  response.status(200).json({'pic': "<img src='https://cdn-images-1.medium.com/max/1600/1*zf4T8RZkbis2W9Yej8p7gw.jpeg'/>"})
+});
+
+app.use(function (req, res, next) {
+  res.status(404).send("Sorry can't find that!")
+})
